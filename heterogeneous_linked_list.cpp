@@ -21,7 +21,7 @@ node *create_char(char a)
 	//pt->p = (char*)(pt->p);
 	pt =(node*)malloc(sizeof(node));
 	pt->p=malloc(sizeof(char));
-	*(int*)pt->p =a;
+	*(char*)pt->p =a;
 	return pt;
 }
 
@@ -30,7 +30,8 @@ node *create_int(int a)
 	node *pt;
 	//pt->p = (char*)(pt->p);
 	pt = (node*)malloc(sizeof(node));
-	pt->p=&a;
+	pt->p=malloc(sizeof(int));
+	*(int *)pt->p=a;
 	return pt;
 }
 
@@ -39,7 +40,8 @@ node *create_double(double a)
 	node *pt;
 	//pt->p = (char*)(pt->p);
 	pt = (node*)malloc(sizeof(node));
-	pt->p=&a;
+	pt->p=malloc(sizeof(double));
+	*(double *)pt->p=a;
 	return pt;
 }
 	
@@ -76,35 +78,39 @@ node *create_double(double a)
 	if(head==NULL)
 		{
 			head = a;
+			head->next = NULL;
 			return head;
 		}
 
 	else
 	{
-			node* temp = head;
-			while (temp->next != NULL)
-			temp = temp->next;
-			 
-			temp->next = a;
+			a->next = head;
+			head = a;
+			 head->next =NULL;
+			
 		return head 	;
 	}
 
 }
 
 void print_list (node* front) {
-node* temp = NULL;
-for (temp = front; temp != NULL; temp = temp->next) {
-switch (temp->type) {
-case INT:
-printf ("%d ", *(int*)temp->p);
-break;
-case CHAR:
-printf ("%c ", *(char*)temp->p);
-break;
-case DOUBLE:
-printf ("%g ", *(double*)temp->p);
-break;
-}
+
+node* temp = NULL;int i =0;
+for (temp = front;temp!=NULL; temp = temp->next)
+ {
+	switch (temp->type) {
+	case INT:
+	printf ("%d ", *(int*)temp->p);
+	break;
+	case CHAR:
+	printf ("%c ", *(char*)temp->p);
+	break;
+	case DOUBLE:
+	printf ("%g ", *(double*)temp->p);
+	break;
+	}
+
+putchar ('\n');
 }
 putchar ('\n');
 }
@@ -113,7 +119,7 @@ putchar ('\n');
 int main()
 {
 
-	node *p =NULL;
+	node *p ;
 	p = create(p,CHAR);
 	p->next = create(p,INT);
 	p->next->next = create(p,DOUBLE);
