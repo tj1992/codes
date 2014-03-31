@@ -1,0 +1,163 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<cmath>
+
+using namespace std;
+
+
+struct node
+{
+int x; int y;
+int clas;
+int node_number;
+
+};
+
+struct tj
+{
+double dist;
+int clas;
+};
+
+ bool operator < (const tj &a,const tj &b)
+{
+return a.dist < b.dist;
+}
+
+vector<node>n1;
+
+int find_min(vector<tj>t,int k)
+{
+if (k > 100)
+cerr<<"k greater than 100";
+double ar[20];
+for(int i =1;i<20;i++)
+ar[i]=0;
+double max = 0;
+int index = 0;
+
+for(unsigned i =0;i<k;i++)
+ar[t[i].clas]+=double(1/(t[i].dist));
+
+for(int i =1;i < 20;i++)cout<<"ar[i]"<<i<<"\t"<<ar[i]<<'\n';
+cout<<'\n';
+max = ar[1];
+index = 1;
+for(int i = 2 ;i <20;i++)
+if(max < ar[i]) {
+ max =ar[i];
+index = i;
+}
+
+cout<<"index"<<index<<'\n';
+return index;
+}
+
+void print_vector (vector<tj>& tt) {
+for (int i = 0; i < tt.size(); ++i)
+cout<<tt[i].clas<<' '<<tt[i].dist<<'\t';
+
+cout<<'\n';
+}
+
+
+void dist(int k,int next )
+{
+vector<tj>tt(k+1);
+
+for(int i =0;i<=k;i++)
+{
+tt[i].dist = ((n1[next].x - n1[i].x)*(n1[next].x - n1[i].x)+(n1[next].y - n1[i].y)*(n1[next].y - n1[i].y));
+
+
+tt[i].clas = n1[i].clas;
+
+}
+cout<<"Before sort:\n";
+print_vector (tt);
+sort(tt.begin(),tt.end());
+cout<<"\nAfter sort:\n";
+print_vector (tt);
+int x = find_min(tt,k);
+//int x = tt[0].clas;
+//cout<<"hello"<<n1[next].node_number<<'\t'<<x<<'\n';
+n1[next].clas = x;
+
+}
+
+
+
+int main()
+{
+
+int n,k;
+n = 10;
+k = 3;
+cin>>n>>k;
+
+
+n1.resize(n);
+for(int i =0;i < n;i++)
+{
+cin>>n1[i].x;
+cin>>n1[i].y;
+n1[i].clas = i+1;
+n1[i].node_number =i;
+}
+
+
+for(int i = 0;i < n-k;i++)
+{
+int next = i+k;
+int xx=i+k-1;
+dist(xx,next);
+}
+
+for(int i =0;i < n;i++)
+cout<<n1[i].node_number<<'\t'<<n1[i].clas<<'\n';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
