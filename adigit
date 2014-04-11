@@ -1,0 +1,62 @@
+#include <algorithm>
+#include <cctype>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <map>
+#include <math.h>
+ 
+ 
+typedef unsigned long long int lld;
+using namespace std;
+ 
+ 
+ 
+ 
+int main(){
+	lld i,z,n,j,k,t,h,ans = 0;
+	lld b,d,m,index,b1,b2;
+	lld a[10][100001] = {0};	
+	cin>>n>>m;
+	char str[100001];
+ 
+	scanf("%s",str);
+ 
+	for(i=0;i<n;i++){
+		a[(str[i]-'0')][i]++;
+	}
+ 
+	for(i=0;i<10;i++){
+		z = 0;
+		for(j=0;j<n;j++){
+			z = z + a[i][j];
+			a[i][j] = z;
+			
+		}
+		
+	}
+ 
+	for(j=0;j<m;j++){
+		b1 = 0;
+		cin>>index;
+		index--;
+		k = (str[index]-'0');
+ 
+		
+ 
+		for(i=0;i<10;i++){
+			if(i<k)
+				b1 = b1 + (a[i][index])*(k-i);
+			else
+				b1 = b1 + (i-k)*(a[i][index]);
+			
+		}
+ 
+ 
+		cout<<b1<<'\n';
+ 
+	}
+ 
+	return 0;
+}
+ 
