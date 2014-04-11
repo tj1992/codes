@@ -1,0 +1,44 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+ 
+int main()
+{
+	unsigned long n ;
+	cin>>n;
+	
+	long i,j;
+	unsigned int a,b;
+	while(n--)
+	{
+		cin>>a>>b;
+		i = log2(a);
+		j = log2(b);
+		long  steps = 0;
+		
+		if (i > j)
+			while (i > j)
+				{
+					a /= 2;
+					i--;
+					steps++;
+				}
+		else if (j > i)
+			while (i < j)
+				{
+					b /= 2;
+					j--;
+					steps++;
+				}
+ 
+		while (a != b)
+		{
+			b /= 2;
+			a /= 2;
+			steps += 2;
+		}
+ 
+	cout<<steps<<'\n';
+	}
+}
+ 
